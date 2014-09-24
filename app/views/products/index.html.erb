@@ -1,15 +1,10 @@
-<% first_product = Product.first %>
-<% cheap_product = Product.where('price > 10').first %>
-<p>Product: "<%= first_product.name %>" costs $<%=first_product.price%></p>
-<p>
-  The owner of this product is <%= first_product.user.name %>
-</p>
+<% lots_of_products = Product.includes(:user).all %>
 
-<p>Cheap Product: "<%= cheap_product.name %>" costs $<%= cheap_product.price %></p>
-<p>
-  The owner of this product is <%= cheap_product.user.name %>
-</p>
-
-<p>
-  Total number of products: <%= Product.count %>
-</p>
+<ul>
+  <%= lots_of_products.each do |product| %>
+      <li>
+        "<%= product.name %>": costs $<%= product.price %>
+        Sold By: <%= product.user.name %>
+      </li>
+  <% end %>
+</ul>
